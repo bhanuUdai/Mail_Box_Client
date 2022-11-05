@@ -1,12 +1,17 @@
 import React, { useState, useRef } from "react";
 import classes from "./Auth.module.css";
 import useHttp from "../Hook/useHttp";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { authAction } from "../store/auth-reducer";
 const Auth = () => {
   const [isLogin, setLogin] = useState(true);
   const [error, sendRequest] = useHttp();
   const enteredEmailRef = useRef();
   const enteredPassRef = useRef();
   const enteredConfPassRef = useRef();
+  const history=useHistory()
+  const dispatch=useDispatch()
   const formSubmitHandler = async (event) => {
     event.preventDefault();
     const enteredMail = enteredEmailRef.current.value;
@@ -25,9 +30,9 @@ const Auth = () => {
         alert("Please enter all inputs");
       } else {
         const resData = (res) => {
-          console.log(res);
-          enteredEmailRef.current.value = "";
-          enteredPassRef.current.value = "";
+          console.log(res.data);
+          dispatch(authAction.setToken(res.data.idToken))
+          history.replace('/mailbox')
         };
 
         sendRequest(

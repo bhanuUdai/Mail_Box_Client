@@ -3,11 +3,20 @@ import Header from './Components/Layout/Header';
 import Footer from './Components/Layout/Footer';
 import React from 'react';
 import Auth from './Components/Auth/Auth';
+import Mailbox from './Components/page/Mailbox';
+import {Route, Switch} from 'react-router-dom'
 function App() {
   return (
     <React.Fragment>
     <Header/>
-    <Auth></Auth>
+    <Switch>
+      <Route path="/" exact>
+      <Auth/>
+      </Route>
+      <Route path='/mailbox' >
+      <Mailbox/>
+      </Route>
+    </Switch>
     <Footer/>
     </React.Fragment>
    
