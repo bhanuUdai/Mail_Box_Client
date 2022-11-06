@@ -32,6 +32,9 @@ const Auth = () => {
         const resData = (res) => {
           console.log(res.data);
           dispatch(authAction.setToken(res.data.idToken))
+          let mail1=enteredMail.replace('@','');
+          let mail2=mail1.replace('.','');
+           dispatch(authAction.setEmailId(mail2))
           history.replace('/mailbox')
         };
 
