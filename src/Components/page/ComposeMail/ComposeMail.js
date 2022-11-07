@@ -27,6 +27,7 @@ const ComposeMail = () => {
     const dataObj = {
       subject: enteredSub,
       message: message,
+      seen:false
     };
 
     if(enteredMail.trim().length===0)
