@@ -35,7 +35,7 @@ const Auth = () => {
           let mail1=enteredMail.replace('@','');
           let mail2=mail1.replace('.','');
            dispatch(authAction.setEmailId(mail2))
-          history.replace('/mailbox')
+          history.replace('/mailbox/welcome')
         };
 
         sendRequest(

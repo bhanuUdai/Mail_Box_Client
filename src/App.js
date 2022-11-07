@@ -14,12 +14,12 @@ function App() {
       <Route path="/" exact>
       <Auth/>
       </Route>
-      <Route path='/mailbox' >
+      <Route path="/mailbox/:id" >
       <Mailbox/>
       </Route>
-      <Route path='/compose-mail'>
+      {/* <Route path='/compose-mail'>
       <ComposeMail/>
-      </Route>
+      </Route> */}
     </Switch>
     <Footer/>
     </React.Fragment>
