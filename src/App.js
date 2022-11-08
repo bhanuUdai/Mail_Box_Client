@@ -11,10 +11,11 @@ import { ActionCreater } from "./Components/store/store-actions";
 function App() {
   const dispatch = useDispatch();
   const userEmail = useSelector((state) => state.auth.MailBoxId);
-  useEffect(() => {
-    dispatch(ActionCreater(userEmail));
-  }, []);
-
+  // useEffect(() => {
+  //   console.log('INSIDE APP ACTION')
+   
+  // }, []);
+  dispatch(ActionCreater(userEmail));
   return (
     <React.Fragment>
       <Header />

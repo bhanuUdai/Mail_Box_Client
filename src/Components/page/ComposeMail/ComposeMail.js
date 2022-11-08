@@ -44,6 +44,7 @@ const ComposeMail = () => {
           console.log(res.data.name, "==> Resource");
           let emailWithId = { ...dataObj, id: res.data.name };
           dispatch(manageEmailActions.setSendMail(emailWithId));
+          alert('Mail Sent')
         };
         sendRequest(
           {
@@ -98,6 +99,7 @@ const ComposeMail = () => {
               paddingBottom: "145px",
             }}
             onChange={refHandler}
+            
           />
         </form>
         <button className={classes.send_button} onClick={sendMailHandler}>

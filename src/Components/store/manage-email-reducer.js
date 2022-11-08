@@ -29,6 +29,11 @@ const manageEmailSlice = createSlice({
       let message = state.receive.find((data) => data.id === action.payload);
       message.seen = true;
     },
+    deleteMail(state,action)
+    {
+      let arr=state.receive.filter((arr)=>arr.id!==action.payload)
+      state.receive=arr
+    }
   },
 });
 
