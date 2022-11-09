@@ -14,19 +14,26 @@ const Inbox = (prop) => {
       seen: true,
     };
     const responseHandler = (res) => {
-      dispatch(manageEmailActions.seenMessage(prop.mails.id));
+      if (prop.type === "receive") {
+        dispatch(manageEmailActions.seenMessage(prop.mails.id));
+      } else {
+        dispatch(manageEmailActions.seenSentMessageHandler(prop.mails.id));
+      }
+
       console.log(res);
     };
     sendRequest(
       {
         request: "patch",
-        url: `https://mail-box-client-2811f-default-rtdb.firebaseio.com/receive${userMail}/${prop.mails.id}.json`,
+        url: `https://mail-box-client-2811f-default-rtdb.firebaseio.com/${prop.type}${userMail}/${prop.mails.id}.json`,
         data: dataObj,
         header: { "Content-type": "application/json" },
       },
       responseHandler
     );
   };
+
+  console.log(error);
 
   return (
     <React.Fragment>
@@ -38,7 +45,7 @@ const Inbox = (prop) => {
               style={{
                 backgroundColor: prop.mails.seen === false ? "grey" : "white",
               }}
-              to={`/message/${prop.mails.id}`}
+              to={`/${prop.type}message/${prop.mails.id}`}
             >
               {prop.mails.message}
             </NavLink>

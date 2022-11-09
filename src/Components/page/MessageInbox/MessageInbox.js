@@ -12,7 +12,7 @@ const MessageInbox = () => {
   const dispatch=useDispatch()
   const history=useHistory()
   console.log(mails, "==>MESSAGE");
-  let arr = mails.find((index) => index.id == id);
+  let arr = mails.find((index) => index.id === id);
 
   console.log(arr);
 
@@ -23,7 +23,7 @@ const MessageInbox = () => {
     {
       dispatch(manageEmailActions.deleteMail(arr.id))
       alert('Message deleted Successfully')
-      history.replace('/mailbox/inbox')
+      history.replace('/mailbox/receiveinbox')
     }
 
     sendRequest(

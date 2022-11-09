@@ -17,3 +17,25 @@ export const ActionCreater = (userEmail) => {
     fetchData();
   };
 };
+
+
+ export const ActionForSentMail=(userEmail)=>
+{
+  return async(dispatch)=>
+  {
+    const fetchData=async()=>
+    {
+      try{
+        let res=await axios.get(`https://mail-box-client-2811f-default-rtdb.firebaseio.com/sent${userEmail}.json`)
+        dispatch(manageEmailActions.setSentServerMail(res.data)  )
+      }
+      catch(err)
+      {
+        console.log(err)
+      }
+    }
+
+    fetchData();
+    
+  }
+}
