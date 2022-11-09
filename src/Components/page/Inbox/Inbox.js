@@ -43,7 +43,7 @@ const Inbox = (prop) => {
             <NavLink
               onClick={removeSeenHandler}
               style={{
-                backgroundColor: prop.mails.seen === false ? "grey" : "white",
+                backgroundColor: prop.mails.seen === false ? "lightgreen" : "white",
               }}
               to={`/${prop.type}message/${prop.mails.id}`}
             >

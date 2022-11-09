@@ -1,7 +1,7 @@
 import "./App.css";
 import Header from "./Components/Layout/Header";
 import Footer from "./Components/Layout/Footer";
-import React from "react";
+import React, { useEffect } from "react";
 import Auth from "./Components/Auth/Auth";
 import Mailbox from "./Components/page/Mail/Mailbox";
 import { Route, Switch } from "react-router-dom";
@@ -13,7 +13,14 @@ import SentBox from "./Components/page/SentBox/SentBox";
 function App() {
   const dispatch = useDispatch();
   const userEmail = useSelector((state) => state.auth.MailBoxId);
-  dispatch(ActionCreater(userEmail));
+  useEffect(() => {
+    let id = setInterval(() => {
+      console.log("CALLING INTERVAL")
+      dispatch(ActionCreater(userEmail));
+    }, 2000);
+    return(()=>clearInterval(id))
+  }, []);
+
   dispatch(ActionForSentMail(userEmail));
   return (
     <React.Fragment>
