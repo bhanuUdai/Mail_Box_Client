@@ -4,18 +4,26 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const SentBox = () => {
-  const mails = useSelector((state) => state.mailmanager.sent);
+  const sentMails = useSelector((state) => state.mailmanager.sent);
   const { id } = useParams();
-  let arr = mails.find((index) => index.id === id);
+  const selectedMail = sentMails.find((mail) => mail.id === id);
+
+  if (!selectedMail) {
+    return <p className={classes.error}>Mail not found. Please try again later.</p>;
+  }
 
   return (
-    <React.Fragment>
-      <h1 className={classes.heading}>SENT</h1>
+    <div className={classes.container}>
+      <h1 className={classes.heading}>Sent Mail</h1>
       <main className={classes.main}>
-        <h5>{arr ? arr.subject : "loading.."}</h5>
-        <p>{arr ? arr.message : "loading.."}</p>
+        <h5 className={classes.subject}>{selectedMail.subject}</h5>
+        <div
+          className={classes.message}
+          dangerouslySetInnerHTML={{ __html: selectedMail.message }}
+        />
       </main>
-    </React.Fragment>
+    </div>
   );
 };
+
 export default SentBox;

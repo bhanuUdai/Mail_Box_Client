@@ -1,50 +1,59 @@
 import React, { useState, useRef } from "react";
 import classes from "./ComposeMail.module.css";
+import { EditorState, convertToRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import draftToHtml from "draftjs-to-html";
 import useHttp from "../../Hook/useHttp";
 import { useSelector, useDispatch } from "react-redux";
 import { manageEmailActions } from "../../store/manage-email-reducer";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+// Import Toastify
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ComposeMail = () => {
-  const [message, setMessage] = useState();
+  const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
   const enteredMailAddRef = useRef();
   const enteredSubjectRef = useRef();
   const [error, sendRequest] = useHttp();
   const userMail = useSelector((state) => state.auth.MailBoxId);
-  const refHandler = (event) => {
-    console.log(event.blocks[0].text);
-    setMessage(event.blocks[0].text);
-  };
   const dispatch = useDispatch();
+
+  const onEditorStateChange = (state) => {
+    setEditorState(state);
+  };
 
   const sendMailHandler = () => {
     const enteredMail = enteredMailAddRef.current.value;
     const enteredSub = enteredSubjectRef.current.value;
-    console.log(enteredMail, enteredSub, message, "==>In Compose mail");
     const mail1 = enteredMail.replace("@", "");
     const mail2 = mail1.replace(".", "");
+    const messageHtml = draftToHtml(convertToRaw(editorState.getCurrentContent()));
+    const currentTime = new Date().toLocaleString();
+  
     const dataObj = {
       subject: enteredSub,
-      message: message,
-      seen:false
+      message: messageHtml,
+      time: currentTime,
+      seen: false
     };
-
-    if(enteredMail.trim().length===0)
-    {
-      alert('Please enter email address')
-    }
-    else if(!enteredMail.includes('@') || !enteredMail.includes('.') )
-    {
-      alert('Please enter valid email Id')
-    }
-    else{
+  
+    if (enteredMail.trim().length === 0) {
+      toast.error('Please enter email address');
+    } else if (!enteredMail.includes('@') || !enteredMail.includes('.')) {
+      toast.error('Please enter valid email Id');
+    } else {
       const resData = () => {
         const responseHandler = (res) => {
-          console.log(res.data.name, "==> Resource");
           let emailWithId = { ...dataObj, id: res.data.name };
           dispatch(manageEmailActions.setSendMail(emailWithId));
-          alert('Mail Sent')
+          toast.success('Mail Sent');
+          // Reset input fields and editor state
+          enteredMailAddRef.current.value = '';
+          enteredSubjectRef.current.value = '';
+          setEditorState(EditorState.createEmpty());
         };
         sendRequest(
           {
@@ -67,15 +76,17 @@ const ComposeMail = () => {
         resData
       );
     }
-    
   };
 
   return (
     <React.Fragment>
-      <h2>{error}</h2>
+      <ToastContainer /> {/* Add ToastContainer */}
+      {error && <h2>{error}</h2>}
       <main className={classes.main}>
         <section className={classes.add_section}>
-          <label htmlFor="to">To : </label>
+          <label htmlFor="to">
+            <FontAwesomeIcon icon={faEnvelope} className={classes.icon} /> To:
+          </label>
           <input
             ref={enteredMailAddRef}
             type="email"
@@ -85,29 +96,30 @@ const ComposeMail = () => {
         </section>
         <section className={classes.compose_section}>
           <input ref={enteredSubjectRef} type="text" placeholder="subject" />
-          {/* <input type="text" placeholder="your message" /> */}
         </section>
 
         <form>
           <Editor
+            editorState={editorState}
             toolbarClassName="toolbarClassName"
             wrapperClassName="wrapperClassName"
             editorClassName="editorClassName"
             placeholder="    your message"
             editorStyle={{
               border: "1px solid antiquewhite",
-              paddingBottom: "145px",
+              padding: "0px 10px 0px 10px",
+              height: "calc(100vh - 500px)",
             }}
-            onChange={refHandler}
-            
+            onEditorStateChange={onEditorStateChange}
           />
         </form>
         <button className={classes.send_button} onClick={sendMailHandler}>
-          Send
+          <FontAwesomeIcon icon={faPaperPlane} className={classes.icon} /> Send
         </button>
       </main>
     </React.Fragment>
   );
 };
+
 export default ComposeMail;
 

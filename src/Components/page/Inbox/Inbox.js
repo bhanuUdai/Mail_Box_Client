@@ -4,11 +4,14 @@ import { NavLink } from "react-router-dom";
 import useHttp from "../../Hook/useHttp";
 import { useSelector, useDispatch } from "react-redux";
 import { manageEmailActions } from "../../store/manage-email-reducer";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelopeOpen, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+
 const Inbox = (prop) => {
   const [error, sendRequest] = useHttp();
   const userMail = useSelector((state) => state.auth.MailBoxId);
   const dispatch = useDispatch();
-  console.log(prop, "==>inside inbox");
+
   const removeSeenHandler = () => {
     const dataObj = {
       seen: true,
@@ -19,8 +22,6 @@ const Inbox = (prop) => {
       } else {
         dispatch(manageEmailActions.seenSentMessageHandler(prop.mails.id));
       }
-
-      console.log(res);
     };
     sendRequest(
       {
@@ -33,7 +34,31 @@ const Inbox = (prop) => {
     );
   };
 
-  console.log(error);
+  const formatTime = (timeString) => {
+    if (!timeString) {
+      return "Invalid Date";
+    }
+    
+    try {
+      // Split the date and time parts
+      const [datePart, timePart] = timeString.split(', ');
+      const [day, month, year] = datePart.split('/');
+      const [hours, minutes] = timePart.split(':');
+  
+      // Create a new Date object using the parsed values
+      const date = new Date(year, month - 1, day, hours, minutes);
+  
+      if (isNaN(date.getTime())) {
+        throw new Error("Invalid Date");
+      }
+  
+      const formattedMonth = date.toLocaleString('default', { month: 'short' });
+      return `${day} ${formattedMonth} ${year} ${hours}:${minutes}`;
+    } catch (error) {
+      console.error("Error formatting time:", error);
+      return "Invalid Date";
+    }
+  };
 
   return (
     <React.Fragment>
@@ -42,17 +67,17 @@ const Inbox = (prop) => {
           <li className={classes.list}>
             <NavLink
               onClick={removeSeenHandler}
-              style={{
-                backgroundColor: prop.mails.seen === false ? "lightgreen" : "white",
-              }}
-              to={`/${prop.type}message/${prop.mails.id}`}
+              to={`/mailbox/${prop.type}message/${prop.mails.id}`}
             >
-              {prop.mails.message}
+              <FontAwesomeIcon icon={prop.mails.seen ? faEnvelopeOpen : faEnvelope} className={classes.icon} />
+              {prop.mails?.subject}
             </NavLink>
+            <span className={classes.time}>{formatTime(prop.mails?.time)}</span> {/* Render formatted time */}
           </li>
         </ul>
       </main>
     </React.Fragment>
   );
 };
+
 export default Inbox;

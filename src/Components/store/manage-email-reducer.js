@@ -19,6 +19,7 @@ const manageEmailSlice = createSlice({
           message: obj[id].message,
           subject: obj[id].subject,
           seen: obj[id].seen,
+          time: obj[id].time,
         });
       }
       console.log(arr, "==>INSIDE  MANAGER");
@@ -43,6 +44,7 @@ const manageEmailSlice = createSlice({
           message: obj[id].message,
           subject: obj[id].subject,
           seen: obj[id].seen,
+          time: obj[id].time,
         });
       }
        state.sent=(arr)

@@ -6,14 +6,17 @@ import { useSelector } from "react-redux";
 import ComposeMail from "../ComposeMail/ComposeMail";
 import Welcome from "../Welcome";
 import { useParams } from "react-router-dom";
+import MessageInbox from "../MessageInbox/MessageInbox";
+import SentBox from "../SentBox/SentBox";
+// Import Font Awesome icons
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faPaperPlane, faPlus } from '@fortawesome/free-solid-svg-icons';
+
 const Mailbox = () => {
   const history = useHistory();
-
   const receiveMail = useSelector((state) => state.mailmanager.receive);
   const sentMail = useSelector((state) => state.mailmanager.sent);
-  console.log(receiveMail);
   const { id } = useParams();
-  console.log(id, "==>ID");
 
   let unSeen = 0;
   receiveMail.forEach((data) => {
@@ -22,39 +25,37 @@ const Mailbox = () => {
     }
   });
 
-  console.log(unSeen, "UNSEEN MESSAGES");
-
   return (
     <React.Fragment>
       <main className={classes.main}>
         <section className={classes.section}>
           <h4>Your Mail Box</h4>
-          <button
-            onClick={() => {
-              history.push("/mailbox/compose");
-            }}
-          >
-            Compose
+          <button onClick={() => history.push("/mailbox/compose")}>
+            <FontAwesomeIcon icon={faPlus} /> Compose
           </button>
-          <button
-            onClick={() => {
-              history.push("/mailbox/receiveinbox");
-            }}
-          >{`Inbox ${unSeen}`}</button>
-          <button
-            onClick={() => {
-              history.push("/mailbox/inbox");
-            }}
-          >
-            Sent
+          <button onClick={() => history.push("/mailbox/receiveinbox")}>
+            <FontAwesomeIcon icon={faEnvelope} /> {`Inbox ${unSeen}`}
+          </button>
+          <button onClick={() => history.push("/mailbox/inbox")}>
+            <FontAwesomeIcon icon={faPaperPlane} /> Sent
           </button>
         </section>
         <Route path="/mailbox/receiveinbox">
           <section className={classes.inbox_main}>
-            {receiveMail.map((mail) => {
-              return <Inbox key={mail.id} mails={mail} type={"receive"} />;
-            })}
+          <h2 className={classes.heading}>INBOX</h2>
+          <section className={classes.innerSection}>
+            {receiveMail.map((mail) => (
+              <Inbox key={mail.id} mails={mail} type={"receive"} />
+            ))}
+
           </section>
+          </section>
+        </Route>
+        <Route path="/mailbox/receivemessage/:id">
+          <MessageInbox />
+        </Route>
+        <Route path="/mailbox/sentmessage/:id">
+          <SentBox />
         </Route>
         <Route path="/mailbox/compose">
           <ComposeMail />
@@ -64,9 +65,13 @@ const Mailbox = () => {
         </Route>
         <Route path="/mailbox/inbox">
           <section className={classes.inbox_main}>
-            {sentMail.map((mail) => {
-              return <Inbox key={mail.id} mails={mail} type={"sent"} />;
-            })}
+            <h2 className={classes.heading} >SENT</h2>
+            <section className={classes.innerSection}>
+            {sentMail.map((mail) => (
+              <Inbox key={mail.id} mails={mail} type={"sent"} />
+            ))}
+
+            </section>
           </section>
         </Route>
       </main>

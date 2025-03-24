@@ -1,39 +1,67 @@
-.main{
-    margin: 0 30px;
+.main {
+    /* margin: 0 auto; */
     width: 80%;
+    /* max-width: 800px; */
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-
-.add_section{
+.add_section {
     padding-bottom: 14px;
-    border-bottom: 2px solid antiquewhite;;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 20px;
 }
 
-.add_section input{
-    border-color: transparent;
+.add_section input {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px;
+    width: -webkit-fill-available;
+    margin-top: 5px;
 }
-.add_section input:focus{
+
+.add_section input:focus {
     outline: none;
+    border-color: #007BFF;
 }
 
-.compose_section{
+.compose_section {
     display: flex;
     flex-direction: column;
-}
-.compose_section input{
-    border-color: transparent;
-    margin: 14px 0;
-    border-bottom-color: antiquewhite;
-    padding-bottom: 8px;
+    margin-bottom: 20px;
 }
 
-.compose_section input:focus{
-    outline: none;
+.compose_section input {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px;
+    width: -webkit-fill-available;
+    margin-top: 5px;
 }
-.send_button{
+
+.compose_section input:focus {
+    outline: none;
+    border-color: #007BFF;
+}
+
+.send_button {
     margin-top: 22px;
-    padding: 5px 12px;
-    background: pink;
-    border: 1px solid pink;
-    border-radius: 9px;
+    padding: 10px 20px;
+    background: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.send_button:hover {
+    background-color: #00509e;
+}
+
+.icon {
+    margin-right: 8px;
+    color: #007BFF;
 }

@@ -41,12 +41,12 @@ function App() {
           <Mailbox />
         </Route>
 
-        <Route path="/receivemessage/:id">
+        {/* <Route path="/receivemessage/:id">
           <MessageInbox />
         </Route>
         <Route path="/sentmessage/:id">
           <SentBox />
-        </Route>
+        </Route> */}
       </Switch>
       </Suspense>
       <Footer />

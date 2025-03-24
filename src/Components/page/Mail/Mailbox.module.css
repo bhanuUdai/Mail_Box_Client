@@ -1,18 +1,93 @@
-.section{
+.section {
     display: flex;
-    justify-content: flex-start;
     flex-direction: column;
-    width: 125px;
-    margin-left: 20px;
+    align-items: center;
+    width: 200px; /* Fixed width for sidebar */
+    margin-right: 20px;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0; /* Prevent shrinking */
 }
 
-.main{
+.main {
     display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex-grow: 1; /* Allow main content to grow */
+    min-height: calc(100vh - 120px); /* Minimum height */
 }
 
-.inbox_main{
-    border: 1px solid pink;
-    margin-left: 60px;
-    width: 70%;
-    height: 30rem;
+.inbox_main {
+
+    padding: 20px;
+    width: 100%;
+    height: auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px;
+    width: 100%;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 180px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+.heading {
+    font-size: 2.5rem;
+    color: #007BFF;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.innerSection {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    max-height: calc(100vh - 350px); /* Adjust as needed */
+    overflow-y: scroll;
+}
+
+button:hover {
+    background-color: #00509e;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button svg {
+    margin-right: 12px;
+}
+
+h4 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
 }

@@ -1,42 +1,73 @@
-.form{
+.form {
     display: flex;
     flex-direction: column;
     margin: auto;
-    width: 19rem;
-    border: 2px solid brown;
-    border-radius: 20px;
-    min-height: 235px;
-    box-shadow: 10px 5px 5px red;
-}
-
-.form input{
-    width: 16rem;
-    margin: 8px auto;
-    padding: 3px;
+    width: 22rem;
+    border: 1px solid #ccc; /* Neutral border color */
     border-radius: 10px;
-    border: 2px solid blue;
+    min-height: 260px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 25px; /* Added padding */
+    background-color: #ffffff; /* White background for professionalism */
+    font-family: 'Arial', sans-serif; /* Professional font */
 }
 
+.form input {
+    width: 20rem;
+    margin: 12px auto;
+    padding: 10px; /* Increased padding */
+    border-radius: 5px;
+    border: 1px solid #ccc; /* Neutral border color */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition */
+}
 
-.toggle_button{
+.form input:focus {
+    border-color: #007BFF; /* Focus color */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Focus shadow */
+}
+
+.toggle_button {
     background: transparent;
-    border-color: transparent;
+    border: none;
     margin-bottom: 15px;
+    cursor: pointer; /* Pointer cursor */
+    color: #007BFF; /* Text color */
+    transition: color 0.3s; /* Smooth transition */
+    font-size: 0.9rem; /* Adjusted font size */
 }
 
-.submit_button{
-    width: 16.5rem;
-    margin: 8px auto;
-    padding: 3px;
-    border-radius: 10px;
-    border: 2px solid blue;
+.toggle_button:hover {
+    color: #0056b3; /* Hover color */
+}
+
+.submit_button {
+    width: 20rem;
+    margin: 12px auto;
+    padding: 10px; /* Increased padding */
+    border-radius: 5px;
+    border: none;
+    background-color: #007BFF; /* Button background */
+    color: white; /* Button text color */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition */
+    font-size: 1rem; /* Adjusted font size */
+}
+
+.submit_button:hover {
+    background-color: #0056b3; /* Hover background */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Hover shadow */
 }
 
 .form h3 {
-    margin: 5px auto;
+    margin: 10px auto;
+    color: #333; /* Text color */
+    font-size: 1.2rem; /* Adjusted font size */
 }
 
-.error{
+.error {
     display: flex;
     justify-content: center;
+    color: #d9534f; /* Error text color */
+    font-weight: bold; /* Bold text */
+    font-size: 0.9rem; /* Adjusted font size */
 }
